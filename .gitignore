@@ -1,0 +1,17 @@
+# Raw data — not needed at runtime, dashboard only reads data.json
+original data/
+snowflake_dim_fact_table/
+
+# Local Claude Code harness config
+.claude/settings.local.json
+.claude/launch.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
