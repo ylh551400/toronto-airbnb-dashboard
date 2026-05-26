@@ -43,6 +43,32 @@ body {
   text-transform: uppercase;
   color: var(--text-2);
   margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.gh-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-2);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.gh-link:hover {
+  color: var(--text);
+  border-color: var(--text-3);
+}
+.gh-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
 }
 .hero-title {
   font-size: 32px;
