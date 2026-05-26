@@ -1,0 +1,8 @@
+# Don't deploy raw data or pipeline scripts to Vercel
+# (they're only used by GitHub Actions)
+rawdata_new/
+pipeline/
+.env
+.env.example
+requirements.txt
+dashboard-upgrade-plan.md
