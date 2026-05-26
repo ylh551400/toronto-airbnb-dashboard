@@ -15,17 +15,17 @@
 
   <header class="hero">
     <div class="hero-eyebrow">Data Visualization · Portfolio Project</div>
-    <h1 class="hero-title">Toronto Airbnb, mapped by price and rating</h1>
+    <h1 class="hero-title">Toronto Airbnb, mapped by occupancy and rating</h1>
     <p class="hero-sub">
-      10,560 active listings across 140 neighbourhoods, split into four market quadrants
-      by citywide median price and rating. Data: Inside Airbnb, 2019–2024.
+      15,776 active listings across 140 neighbourhoods, split into four market quadrants
+      by citywide median occupancy and rating. Data: Inside Airbnb, January 2026.
     </p>
   </header>
 
   <!-- KPI -->
   <section class="kpi-row" id="kpi-row"></section>
 
-  <!-- Key findings — up top, conclusions first -->
+  <!-- Key findings -->
   <section class="insights" id="insights"></section>
 
   <!-- Quadrant definitions -->
@@ -34,9 +34,9 @@
       <div>
         <h2 class="card-title">How the four quadrants are defined</h2>
         <p class="card-sub">
-          Each neighbourhood is plotted by its median price and average rating, then split
-          against the citywide medians.
-          <strong>Price median: CAD $<span id="price-med">—</span></strong> ·
+          Each neighbourhood is plotted by its median occupancy and average rating, then split
+          against the citywide medians computed from neighbourhood-level aggregates.
+          <strong>Occupancy median: <span id="occ-med">—</span></strong> ·
           <strong>Rating median: <span id="rating-med">—</span></strong>.
         </p>
       </div>
@@ -46,28 +46,28 @@
       <div class="qmatrix-col-head">Rating ≥ median</div>
       <div class="qmatrix-col-head">Rating &lt; median</div>
 
-      <div class="qmatrix-row-head">Price ≥ median</div>
+      <div class="qmatrix-row-head">Occupancy ≥ median</div>
       <div class="qcell" style="--qc:var(--q1)">
         <div class="qcell-tag">Q1</div>
-        <div class="qcell-name">Premium &amp; Loved</div>
-        <div class="qcell-desc">Pricey, high-rated — the aspirational core.</div>
+        <div class="qcell-name">Star</div>
+        <div class="qcell-desc">Highly booked and highly rated — the market leaders.</div>
       </div>
       <div class="qcell" style="--qc:var(--q2)">
         <div class="qcell-tag">Q2</div>
-        <div class="qcell-name">Overpriced</div>
-        <div class="qcell-desc">Pricey but under-loved — satisfaction lags cost.</div>
+        <div class="qcell-name">Volume</div>
+        <div class="qcell-desc">High occupancy but lower ratings — busy but under-delivering.</div>
       </div>
 
-      <div class="qmatrix-row-head">Price &lt; median</div>
+      <div class="qmatrix-row-head">Occupancy &lt; median</div>
       <div class="qcell" style="--qc:var(--q3)">
         <div class="qcell-tag">Q3</div>
-        <div class="qcell-name">Hidden Gems</div>
-        <div class="qcell-desc">Affordable and highly rated — best value.</div>
+        <div class="qcell-name">Hidden Gem</div>
+        <div class="qcell-desc">Well-reviewed but underbooked — quality is there, exposure isn't.</div>
       </div>
       <div class="qcell" style="--qc:var(--q4)">
         <div class="qcell-tag">Q4</div>
-        <div class="qcell-name">Budget Struggling</div>
-        <div class="qcell-desc">Cheap and lower-rated — under-performing supply.</div>
+        <div class="qcell-name">Struggling</div>
+        <div class="qcell-desc">Low occupancy and lower ratings — under-performing supply.</div>
       </div>
     </div>
   </section>
@@ -88,7 +88,7 @@
       </div>
       <div class="seg" id="map-mode">
         <button data-mode="quadrant" class="active">Quadrant</button>
-        <button data-mode="price">Median price</button>
+        <button data-mode="occupancy">Median occupancy</button>
         <button data-mode="rating">Avg rating</button>
         <button data-mode="density">Listing density</button>
       </div>
@@ -100,7 +100,7 @@
   <section class="card card-focus">
     <div class="card-head">
       <div>
-        <h2 class="card-title">Price vs. rating — the four quadrants</h2>
+        <h2 class="card-title">Occupancy vs. rating — the four quadrants</h2>
         <p class="card-sub">
           Each dot is a neighbourhood. Size = listing count. Dashed lines = citywide medians.
         </p>
@@ -125,11 +125,11 @@
     </section>
   </div>
 
-  <!-- Property features → rating & booking rate -->
+  <!-- Amenity bubble -->
   <section class="card">
     <div class="card-head">
       <div>
-        <h2 class="card-title">What property features drive satisfaction & bookings</h2>
+        <h2 class="card-title">What property features drive satisfaction &amp; bookings</h2>
         <p class="card-sub">
           Top amenities by prevalence. X = avg rating, Y = avg reviews/month
           (industry proxy for booking rate). Bubble size = listing share. Dashed lines = citywide average.
@@ -143,7 +143,7 @@
     <section class="card">
       <div class="card-head">
         <div>
-          <h2 class="card-title">Room type: price, rating, booking rate</h2>
+          <h2 class="card-title">Room type: occupancy, rating, booking rate</h2>
           <p class="card-sub">Values normalised 0–100 across room types for comparison; hover for raw numbers.</p>
         </div>
       </div>
@@ -154,20 +154,20 @@
       <div class="card-head">
         <div>
           <h2 class="card-title">Property type — top 8 by supply</h2>
-          <p class="card-sub">Median price vs. avg rating per property type. Bubble size = listing count.</p>
+          <p class="card-sub">Median occupancy vs. avg rating per property type. Bubble size = listing count.</p>
         </div>
       </div>
       <div class="chart-wrap"><canvas id="propType"></canvas></div>
     </section>
   </div>
 
+  <!-- Trend -->
   <section class="card">
     <div class="card-head">
       <div>
-        <h2 class="card-title">Monthly activity, 2019–2024</h2>
+        <h2 class="card-title">Monthly activity (last 3 years)</h2>
         <p class="card-sub">
-          Reviews proxy for bookings. Estimated occupancy uses the Inside Airbnb "San Francisco model":
-          bookings = reviews ÷ 0.5 review rate, multiplied by 3-night avg stay, over a rolling 12-month supply.
+          Reviews proxy for bookings. Occupancy = fraction of listings that received a review that month.
         </p>
       </div>
       <div class="seg" id="trend-scope">
@@ -178,7 +178,7 @@
     <div class="chart-wrap chart-tall"><canvas id="trend"></canvas></div>
   </section>
 
-  <!-- Neighborhood leaderboards -->
+  <!-- Leaderboards -->
   <section class="card">
     <div class="card-head">
       <div>
@@ -193,8 +193,8 @@
   </section>
 
   <footer class="foot">
-    <span>Built with vanilla JS · Chart.js · Leaflet · OpenStreetMap</span>
-    <span>Source: Inside Airbnb (Toronto)</span>
+    <span>Built with vanilla JS · Chart.js · Leaflet · OpenStreetMap · Supabase</span>
+    <span>Source: Inside Airbnb (Toronto, Jan 2026)</span>
   </footer>
 </main>
 

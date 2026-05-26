@@ -1,0 +1,39 @@
+name: Update Airbnb Dashboard Data
+
+# Triggers when new CSV files are pushed into rawdata_new/
+on:
+  push:
+    paths:
+      - 'rawdata_new/listings.csv'
+      - 'rawdata_new/reviews.csv'
+
+  # Also allow manual trigger from the GitHub Actions UI
+  workflow_dispatch:
+
+jobs:
+  pipeline:
+    name: Clean → Analyse → Load
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run pipeline
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: python pipeline/main.py
+
+      - name: Report row counts
+        if: success()
+        run: echo "Pipeline completed successfully. Dashboard data updated."
